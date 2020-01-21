@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Meine Taskliste</title>
+		<style type="text/css">
+			body {
+				font-family: Arial, "sans_serif";
+			}
+
+			input[type="submit"],
+			div#clearBtn {
+				background-color: #FF4561;
+				border: 1px solid #CCC;
+				border-radius: 10px;
+				color: #FFF;
+				max-width: 120px;
+				padding: 4px 8px;
+			}
+
+			ul#travelList {
+				list-style-type: none;
+			}
+
+			ul#travelList li::before {
+				content: "♥";
+				font-weight: bold;
+				margin-right: 10px;
+			}
+
+
+		</style>
+		<script type="text/javascript">	
+			// Help yourself: https://www.w3schools.com/
+
+			var allPlaces = loadList() || new Array(); // allPlaces = [];
+
+			//console.log(loadList());
+
+			function addToList() {
+				var land = document.getElementById("placeInput").value;
+
+				if(!!land && allPlaces.indexOf(land) < 0) {
+					allPlaces.push(land);
+					generateNewListElement(land);	
+					storeList();
+
+				} else if (allPlaces.indexOf(land) >= 0) {
+					alert(land + " ist schon in der Liste!")
+				} else {
+					alert("Bitte gib etwas ein.")
+				}
+
+				document.getElementById("travelForm").reset();
+			}
+
+			function generateNewListElement(text) {
+				var listElement = document.getElementById("travelList"),
+					listItem = document.createElement("li"),
+					textNode = document.createTextNode(text);
+
+					listItem.appendChild(textNode);
+					listElement.appendChild(listItem);
+			}
+
+			function storeList() {
+				localStorage.setItem("allPlaces", JSON.stringify(allPlaces));
+			}
+
+			function loadList() {
+				return JSON.parse(localStorage.getItem("allPlaces"));
+			}
+
+			function init() {
+				for (var i = 0; i < allPlaces.length; i++) {
+					generateNewListElement(allPlaces[i]);
+				}
+
+				// storageLöschenButton
+				document.getElementById("clearBtn").addEventListener("click", deleteStorage, false);
+			}
+
+			function deleteStorage() {
+				localStorage.removeItem("allPlaces");
+				document.getElementById("travelList").innerHTML = "";
+			}
+		</script>
+	</head>
+
+	<body>
+		<h1>Orte, die ich sehen m&ouml;chte</h1>
+		<form id="travelForm" action="javascript:addToList();" method="get">
+			<label for="place">N&auml;chstes Reiseziel:</label>
+			<input type="text" id="placeInput" name="place" autofocus="autofocus" placeholder="Ort eingeben">  
+			<input type="submit" value="Submit">
+		</form>
+
+		<h2>Reiseplan</h2>
+		<ul id="travelList">
+		</ul>
+
+		<div id="clearBtn">Storage l&ouml;schen</div>
+			
+		<script type="text/javascript">
+			init();
+		</script>
+	</body>
+
+</html>
