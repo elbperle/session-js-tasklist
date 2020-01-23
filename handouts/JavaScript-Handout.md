@@ -17,7 +17,6 @@ alter = 25;
 ```javascript
 var length = 16; // Nummer
 var lastName = "Johnson"; // String
-var cars = ["VW", "Toyota", "Tesla", "Ford"]; // Array TODO: eigener Teil
 var isItSaturday = true; // Boolean
 ```
 
@@ -75,8 +74,24 @@ var beruf = {
     gehalt: 4000
 };
 
-// Zugriff auf Objekt-Eigenschaften
+// Zugriff auf Objekt-Eigenschaften mit objektName.eigenschaft
 console.log(beruf.name); // Ausgabe: Webentwicklerin
+```
+
+## Array-Datentyp
+```javascript
+// Array-Definition
+var cars = ["VW", "Toyota", "Tesla", "Ford"]; 
+// Index     0     1         2        3
+// Arrays starten beim Index 0!
+
+// Zugriff auf ein Array-Element über den Index mit arrayNamen[Index]
+console.log(cars[0]); // Ausgabe: VW
+
+// Ein neues Element in ein Array hinzufügen
+var fruits = ["Banane", "Apfel", "Orange", "Kiwi"];
+fruits.push("Birne"); // Füge "Birne" am Ende des Arrays hinzu
+// Resultat: fruits = ["Banane", "Apfel", "Orange", "Kiwi", "Birne"]
 ```
 
 TODO: Hilfreiche Seiten (w3schools, MDN)
