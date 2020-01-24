@@ -8,7 +8,7 @@
 			}
 
 			input[type="submit"] {
-				background-color: #FF4561;
+				background-color: #FF49A3;
 				border: 1px solid #CCC;
 				border-radius: 10px;
 				color: #FFF;
@@ -36,23 +36,24 @@
 
 				if(!!land && allPlaces.indexOf(land) < 0) {
 					allPlaces.push(land);
-					generateNewListElement(land)					
-					document.getElementById("travelForm").reset();
-
+					generateNewListElement(land);					
 					console.log(allPlaces);
+
 				} else if (allPlaces.indexOf(land) >= 0) {
-					alert(land + " ist schon in der Liste!")
+					alert(land + " ist schon in der Liste!");
+
 				} else {
-					alert("Bitte gib etwas ein.")
+					alert("Bitte gib etwas ein.");
 				}
+				
+				document.getElementById("travelForm").reset();
 			}
 
 			function generateNewListElement(text) {
 				var listElement = document.getElementById("travelList"),
-					listItem = document.createElement("li"),
-					textNode = document.createTextNode(text);
+					listItem = document.createElement("li");
 
-					listItem.appendChild(textNode);
+					listItem.innerHTML = text;
 					listElement.appendChild(listItem);
 			}
 		</script>

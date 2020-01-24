@@ -8,7 +8,7 @@
 			}
 
 			input[type="submit"] {
-				background-color: #FF4561;
+				background-color: #FF49A3;
 				border: 1px solid #CCC;
 				border-radius: 10px;
 				color: #FFF;
@@ -28,13 +28,13 @@
 		</style>
 		<script type="text/javascript">			
 			function addToList() {
-				var land = document.getElementById("placeInput").value;
+				var land = document.getElementById("placeInput").value,
 					listElement = document.getElementById("travelList");
 
 				if(!!land) {
-					 var listItem = document.createElement("li");	
-					textNode = document.createTextNode(land);
-					listItem.appendChild(textNode);
+					 var listItem = document.createElement("li");
+
+					listItem.innerHTML = land;
 					listElement.appendChild(listItem);
 
 					document.getElementById("travelForm").reset();
