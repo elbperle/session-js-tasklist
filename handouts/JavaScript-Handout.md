@@ -210,6 +210,9 @@ console.log(summe); // Ausgbae: 12
 // Gibt eine Referenz zu einem Element anhand seiner ID zurück.
 var element = document.getElementById(elementID);
 
+// Erstellt ein neues HTML-Element
+var newElement = document.createElement(htmlTag);
+
 // Ruft das im Element enthaltene HTML ab oder legt dieses fest.
 var content = element.innerHTML;
 element.innerHTML = "<h1> Neues HTML </h1>";
