@@ -41,23 +41,36 @@
 				margin-top: -3px;
 				background-color: #AAA;
 			}
-			
+
 
 		</style>
-		<script type="text/javascript">	
+		<script type="text/javascript">
 			// Help yourself: https://www.w3schools.com/
 
+			// Hilfsarray für die Liste
 			var allPlaces = loadList() || new Array(); // allPlaces = [];
 
+            /**
+			 *	Fügt einen weiteren Ort der Liste hinzu
+             */
 			function addToList() {
-				var land = document.getElementById("placeInput").value;
+				var land = document.getElementById("placeInput").value,
+					existsInList = false;
 
-				if(!!land && allPlaces.indexOf(land) < 0) {
+				for (var i = 0; i < allPlaces.length; i++) {
+					if (allPlaces[i].toLowerCase() === land.toLowerCase()) {
+						existsInList = true;
+						break;
+					}
+				}
+
+				if(!!land && !existsInList) {
 					allPlaces.push(land);
-					generateNewListElement(land);	
+					generateNewListElement(land);
+					// hier fehlt das initialisieren des delete buttons
 					storeList();
 
-				} else if (allPlaces.indexOf(land) >= 0) {
+				} else if (existsInList) {
 					alert(land + " ist schon in der Liste!")
 				} else {
 					alert("Bitte gib etwas ein.")
@@ -66,62 +79,105 @@
 				document.getElementById("travelForm").reset();
 			}
 
+
+            /**
+			 * Erzeugt ein neues List-Element im DOM mit einem Löschen Button
+			 *
+             * @param text
+             */
 			function generateNewListElement(text) {
 				var listElement = document.getElementById("travelList"),
-					listItem = document.createElement("li");
+					listItem = document.createElement("li"),
+					deleteButton = document.createElement("input");
 
-					listItem.innerHTML = text + '<input type="button" class="deleteBtn" name="deletePlace" value="X">';
-					listElement.appendChild(listItem);
+                deleteButton.setAttribute("type", "button");
+                deleteButton.setAttribute("class","deleteBtn");
+                deleteButton.setAttribute("value","X");
+                deleteButton.myPlace = text;  //just as showcase
+
+                listItem.innerHTML = text;
+                listItem.appendChild(deleteButton);
+                listElement.appendChild(listItem);
+
+                // Löschen X-Button dem Listenelement hinzufügen
+                initDeletePlaceEvent(deleteButton);
 			}
 
+            /**
+			 *
+             */
 			function storeList() {
 				localStorage.setItem("allPlaces", JSON.stringify(allPlaces));
 			}
 
+            /**
+			 * Lädt die gespeicherte Liste aus dem LocalStorage und konvertiert sie zu einem Array
+			 *
+             * @returns {Array}
+             */
 			function loadList() {
 				return JSON.parse(localStorage.getItem("allPlaces"));
 			}
 
+			/**
+			 * Zur Initialisierung wird der DOM mit den gespeicherten Daten aufgebaut
+             */
 			function init() {
-				var deleteButtonList = document.getElementsByClassName("deleteBtn");
 				// Liste aus Storage lesen und erstellen
 				for (var i = 0; i < allPlaces.length; i++) {
 					generateNewListElement(allPlaces[i]);
 				}
 
-				// FAhre Update, nachdem ein Listenelement gelöscht wurde
-				initDeleteElements(deleteButtonList);
-				// delete Buttons pro place aktivieren
-				
-				// storageLöschenButton
+				//initDeleteElements(document.getElementsByClassName("deleteBtn"));
+
+				// storageAlleLöschenButton
 				document.getElementById("clearBtn").addEventListener("click", deleteStorage, false);
 			}
 
+
+            /**
+			 * Durchläuft eine Liste von Delete-Buttons, die das Click-Event bekommen sollen
+			 *
+             * @param domElementList
+             */
 			function initDeleteElements(domElementList) {
 				for (var i = 0; i < domElementList.length; i++) {
-					// domElementList[i].liIdx = i;
-
-					domElementList[i].addEventListener("click", function () {
-						var listIndex,
-							travelListUl = document.getElementById("travelList");
-						//TODO: Lösche Element aus der Liste, anschließend REihenfolge beachten
-						console.log("click " + this.parentNode.innerText);
-						// 1. Lösche ELement aus allPlaces
-						listIndex = allPlaces.indexOf(this.parentNode.innerText);
-						console.log(listIndex + allPlaces[listIndex] + " ist es " + this.liIdx);
-						allPlaces.splice(listIndex, 1);
-						// 2. Aktualisiere die Ansicht und den Storage
-						travelListUl.removeChild(travelListUl.childNodes[listIndex+1]);
-						storeList();
-
-						// TODO: Zwischenstand
-						initListElements(document.getElementsByClassName("deleteBtn"));
-						//init(); // Provisorisch, Index muss upgedated werden oder Listenelement auf andere Art gelöscht werden
-					});
+					initDeletePlaceEvent(domElementList[i]);
 				}
-
 			}
 
+            /**
+			 * Setzt das Click-Event auf einen Button
+			 *
+             * @param domElement
+             */
+			function initDeletePlaceEvent(domElement) {
+
+				domElement.addEventListener("click", function () {
+					var curPlace = this.myPlace; // oder unsauberer: this.parentNode.innerText
+
+					// lösche aus DOM
+                    this.parentNode.parentNode.removeChild(this.parentNode);
+
+                    // lösche aus array allPlaces und update stoage
+                    removeItemFromStorage(curPlace);
+				})
+			}
+
+            /**
+			 * Löscht einen Eintrag aus dem Storage
+			 *
+             * @param place
+             */
+			function removeItemFromStorage(place) {
+				var indexAtArray = allPlaces.indexOf(place);
+				allPlaces.splice(indexAtArray, 1);
+				storeList();
+			}
+
+            /**
+			 * Löscht den gesamten Storage, die DOM-Listenelemente und leert das Hilfsarray allPlaces
+             */
 			function deleteStorage() {
 				localStorage.removeItem("allPlaces");
 				document.getElementById("travelList").innerHTML = "";
@@ -133,8 +189,8 @@
 	<body>
 		<h1>Orte, die ich sehen m&ouml;chte</h1>
 		<form id="travelForm" action="javascript:addToList();" method="get">
-			<label for="place">N&auml;chstes Reiseziel:</label>
-			<input type="text" id="placeInput" name="place" autofocus="autofocus" placeholder="Ort eingeben">  
+			<label for="placeInput">N&auml;chstes Reiseziel:</label>
+			<input type="text" id="placeInput" name="placeInput" autofocus="autofocus" placeholder="Ort eingeben">
 			<input type="submit" value="Submit">
 		</form>
 
@@ -143,7 +199,7 @@
 		</ul>
 
 		<div id="clearBtn">Storage l&ouml;schen</div>
-			
+
 		<script type="text/javascript">
 			init();
 		</script>
