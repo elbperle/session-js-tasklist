@@ -8,7 +8,8 @@
 			}
 
 			input[type="submit"],
-			div#clearBtn {
+			div#clearBtn,
+			input.deleteBtn {
 				background-color: #FF49A3;
 				border: 1px solid #CCC;
 				border-radius: 10px;
@@ -27,14 +28,26 @@
 				margin-right: 10px;
 			}
 
+			ul#travelList li {
+				margin: 0 0 10px 0;
+				padding: 5px;
+				width: 180px;
+				height: 25px;
+				background-color: #FFFAFA;
+			}
+
+			input.deleteBtn {
+				float: right;
+				margin-top: -3px;
+				background-color: #AAA;
+			}
+			
 
 		</style>
 		<script type="text/javascript">	
 			// Help yourself: https://www.w3schools.com/
 
 			var allPlaces = loadList() || new Array(); // allPlaces = [];
-
-			//console.log(loadList());
 
 			function addToList() {
 				var land = document.getElementById("placeInput").value;
@@ -57,7 +70,7 @@
 				var listElement = document.getElementById("travelList"),
 					listItem = document.createElement("li");
 
-					listItem.innerHTML = text;
+					listItem.innerHTML = text + '<input type="button" class="deleteBtn" name="deletePlace" value="X">';
 					listElement.appendChild(listItem);
 			}
 
@@ -70,12 +83,43 @@
 			}
 
 			function init() {
+				var deleteButtonList = document.getElementsByClassName("deleteBtn");
+				// Liste aus Storage lesen und erstellen
 				for (var i = 0; i < allPlaces.length; i++) {
 					generateNewListElement(allPlaces[i]);
 				}
 
+				// FAhre Update, nachdem ein Listenelement gelöscht wurde
+				initDeleteElements(deleteButtonList);
+				// delete Buttons pro place aktivieren
+				
 				// storageLöschenButton
 				document.getElementById("clearBtn").addEventListener("click", deleteStorage, false);
+			}
+
+			function initDeleteElements(domElementList) {
+				for (var i = 0; i < domElementList.length; i++) {
+					// domElementList[i].liIdx = i;
+
+					domElementList[i].addEventListener("click", function () {
+						var listIndex,
+							travelListUl = document.getElementById("travelList");
+						//TODO: Lösche Element aus der Liste, anschließend REihenfolge beachten
+						console.log("click " + this.parentNode.innerText);
+						// 1. Lösche ELement aus allPlaces
+						listIndex = allPlaces.indexOf(this.parentNode.innerText);
+						console.log(listIndex + allPlaces[listIndex] + " ist es " + this.liIdx);
+						allPlaces.splice(listIndex, 1);
+						// 2. Aktualisiere die Ansicht und den Storage
+						travelListUl.removeChild(travelListUl.childNodes[listIndex+1]);
+						storeList();
+
+						// TODO: Zwischenstand
+						initListElements(document.getElementsByClassName("deleteBtn"));
+						//init(); // Provisorisch, Index muss upgedated werden oder Listenelement auf andere Art gelöscht werden
+					});
+				}
+
 			}
 
 			function deleteStorage() {

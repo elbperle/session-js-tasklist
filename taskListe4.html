@@ -8,7 +8,7 @@
 			}
 
 			input[type="submit"] {
-				background-color: #FF4561;
+				background-color: #FF49A3;
 				border: 1px solid #CCC;
 				border-radius: 10px;
 				color: #FFF;
@@ -31,17 +31,16 @@
 				var land = document.getElementById("placeInput").value;
 
 				if(!!land) {
-					generateNewListElement(land)					
+					generateNewListElement(land);					
 					document.getElementById("travelForm").reset();
 				}
 			}
 
 			function generateNewListElement(text) {
 				var listElement = document.getElementById("travelList"),
-					listItem = document.createElement("li"),
-					textNode = document.createTextNode(text);
+					listItem = document.createElement("li");
 
-					listItem.appendChild(textNode);
+					listItem.innerHTML = text;
 					listElement.appendChild(listItem);
 			}
 		</script>
