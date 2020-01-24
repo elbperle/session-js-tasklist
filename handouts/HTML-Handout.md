@@ -63,3 +63,8 @@ Dies sieht wie folgt im Browser aus:
 ## Einbindung von CSS und JavaScript in HTML
 * Einbindung von CSS mit dem `<style>`-Tag
 * Einbindung von JavaScript mit `<script>`-Tag
+
+# Hilfreiche Seiten
+* [w3schools](https://www.w3schools.com/)
+* [MDN](https://developer.mozilla.org/de/)
+* [selfhtml](https://wiki.selfhtml.org/)
