@@ -94,7 +94,10 @@ fruits.push("Birne"); // Füge "Birne" am Ende des Arrays hinzu
 // Resultat: fruits = ["Banane", "Apfel", "Orange", "Kiwi", "Birne"]
 
 // Den Index eines Elements im Array auslesen mit arrayName.indexOf(elementImArray);
-console.log(fruits.indexOf("Apfel")) // Ausgabe: 1
+console.log(fruits.indexOf("Apfel")); // Ausgabe: 1
+
+// Ist das Element nicht im Array, so wird -1 zurückgegeben
+console.log(fruits.indexOf("Zitrone")); // Ausgabe: -1
 ```
 
 ## Boolean-Datentyp
