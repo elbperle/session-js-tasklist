@@ -3,7 +3,7 @@
 ## Das HTML-Grundgerüst
 ```html
 <!DOCTYPE html>
-<html>
+<html lang="de">
   <head>
     <title>Titel</title>
   </head>
