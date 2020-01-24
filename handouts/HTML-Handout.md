@@ -44,7 +44,7 @@ Definiert ein Formular, das zum Erfassen von Benutzereingaben verwendet wird:
 ```html
 <form>
     <label for="myTextInputField">Text hier einfügen:</label>
-    <input type="text" name="myTextInputField" placeholder="Text eingeben">
+    <input type="text" name="myText" id="myTextInputField" placeholder="Text eingeben">
     <input type="submit" value="Senden">
 </form>
 ```
@@ -52,7 +52,7 @@ Dies sieht wie folgt im Browser aus:
 
 <form>
     <label for="myTextInputField">Text hier einfügen:</label>
-    <input type="text" name="myTextInputField" placeholder="Text eingeben">
+    <input type="text" name="myText" id="myTextInputField" placeholder="Text eingeben">
     <input type="submit" value="Senden">
 </form>
 
