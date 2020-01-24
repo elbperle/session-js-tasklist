@@ -97,7 +97,7 @@ fruits.push("Birne"); // Füge "Birne" am Ende des Arrays hinzu
 console.log(fruits.indexOf("Apfel")) // Ausgabe: 1
 ```
 
-## Boolean-Datentype
+## Boolean-Datentyp
 Zwei Werte: `true` oder `false`
 ```javascript
 var binIchInHamburg = true;
