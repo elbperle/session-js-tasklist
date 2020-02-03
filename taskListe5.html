@@ -25,13 +25,12 @@
 				font-weight: bold;
 				margin-right: 10px;
 			}
-
 		</style>
     
 		<script type="text/javascript">
 			// Help yourself: https://www.w3schools.com/
 
-			var allPlaces = []; // allPlaces = [];
+			var allPlaces = []; // Auch möglich: allPlaces = new Array(); 
 
 			function addToList() {
 				var land = document.getElementById("placeInput").value;
@@ -39,7 +38,6 @@
 				if(!!land && allPlaces.indexOf(land) < 0) {
 					allPlaces.push(land);
 					generateNewListElement(land);
-					console.log(allPlaces);
 
 				} else if (allPlaces.indexOf(land) >= 0) {
 					alert(land + " ist schon in der Liste!");
