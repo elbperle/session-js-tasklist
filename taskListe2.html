@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="de">
 	<head>
+		<meta charset="UTF-8">
 		<title>Meine Taskliste</title>
 		<style type="text/css">
 			body {
@@ -14,8 +15,8 @@
 				color: #FFF;
 				padding: 4px 8px;
 			}
-
 		</style>
+    
 		<script type="text/javascript">
 			function addToList() {
 				var land = document.getElementById("placeInput").value;
@@ -24,16 +25,15 @@
 					console.log("Urlaub " + land);
 					document.getElementById("travelForm").reset();
 				}
-
 			}
 		</script>
 	</head>
 
 	<body>
-		<h1>Orte, die ich sehen m&ouml;chte</h1>
-		<form id="travelForm" action="javascript:addToList()">
-			<label for="placeInput">N&auml;chstes Reiseziel:</label>
-			<input type="text" id="placeInput"  name="place" autofocus="autofocus" placeholder="Ort eingeben">
+		<h1>Orte, die ich sehen möchte</h1>
+		<form id="travelForm" action="javascript:addToList()" method="post">
+			<label for="placeInput">Nächstes Reiseziel:</label>
+			<input type="text" id="placeInput" name="place" autofocus="autofocus" placeholder="Ort eingeben">  
 			<input type="submit" value="Submit">
 		</form>
 
