@@ -27,7 +27,7 @@ console.log("Moin"); // Ausgabe: Moin
 
 // Ausgabe Variable
 var greeting = "Hello, Develop<HER>!";
-console.log(greeting) // Ausgabe: Hello, Develop<HER>!
+console.log(greeting); // Ausgabe: Hello, Develop<HER>!
 
 var year = 2020;
 console.log(year) // Ausgabe: 2020

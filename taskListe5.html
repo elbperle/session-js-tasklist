@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="de">
 	<head>
 		<meta charset="UTF-8">
 		<title>Meine Taskliste</title>
 		<style type="text/css">
 			body {
-				font-family: Arial, "sans_serif";
+				font-family: Arial, sans-serif;
 			}
 
 			input[type="submit"] {
@@ -27,17 +27,18 @@
 			}
 
 		</style>
-		<script type="text/javascript">	
+    
+		<script type="text/javascript">
 			// Help yourself: https://www.w3schools.com/
 
-			var allPlaces = new Array(); // allPlaces = [];
+			var allPlaces = []; // allPlaces = [];
 
 			function addToList() {
 				var land = document.getElementById("placeInput").value;
 
 				if(!!land && allPlaces.indexOf(land) < 0) {
 					allPlaces.push(land);
-					generateNewListElement(land);					
+					generateNewListElement(land);
 					console.log(allPlaces);
 
 				} else if (allPlaces.indexOf(land) >= 0) {
@@ -46,7 +47,7 @@
 				} else {
 					alert("Bitte gib etwas ein.");
 				}
-				
+
 				document.getElementById("travelForm").reset();
 			}
 
